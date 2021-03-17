@@ -34,8 +34,7 @@ output_max_growth_doy$doy_a <-
           origin = paste0(row.names(output_max_growth_doy),'-01-01'))
 
 output_max_growth_doy$doy_p <- 
-  as.Date(output_max_growth_doy$doy_p, 
+  as.Date(output_max_growth_doy$doy_p,
           origin = paste0(row.names(output_max_growth_doy),'-01-01'))
-
 
 write.csv(output_max_growth_doy, "output_max_growth_doy_north.csv", row.names = FALSE)
