@@ -1,14 +1,17 @@
 ## this script takes the 16-day biomass growth data that is downloaded from RAP and 
 ## gives us the maximum growth and the doy that the maximum growth occured.  It does this
-## by year and then outputs a .csv file
+## by year, for both annuals and perennials and then outputs a .csv file
 
+## set your wd to where the 16-day biomass csv is that you downloaded from RAP for the property
 setwd("/Volumes/GoogleDrive/My Drive/01 Programs/CRI/CRI_Technical Service Provision/CRI_TSP_Planning/2021 CRI Plans/American Creek Ranch/web_data/vegetation_data/RAP/north")
 
+## read in csv
 dat <- read.csv("ACP_north_16-day_biomass_RAP.csv")
 
-colnames(dat)
 
-## afgAGB
+
+## function to find the maximum 16-day biomass growth values and the 
+## corresponding day of year (doy) for annuals and perennials
 
 foo <- function(x) {
   
@@ -23,18 +26,31 @@ foo <- function(x) {
   return(c(max_growth_a, max_growth_doy_a, max_growth_p, max_growth_doy_p))
 }
 
+## use split to split the data by year, sapply to apply the function foo to each of the years and t to transform the 
+## output into columns rather than rows
+
 output_max_growth_doy <- t(sapply(split(dat, dat$year), foo))
+
+## covert to data.frame so you can rename and modify doy to a date
 
 output_max_growth_doy <- as.data.frame(output_max_growth_doy)
 
+## rename columns in output_max_growth_day
+
 colnames(output_max_growth_doy) <- c('max_afgAGB','doy_a','max_pfgAGB','doy_p')
+
+## covert doy for annuals into date, using paste to create the year (row.names) day day format to define the origin
 
 output_max_growth_doy$doy_a <- 
   as.Date(output_max_growth_doy$doy_a, 
           origin = paste0(row.names(output_max_growth_doy),'-01-01'))
 
+## covert doy for perennials into date, using paste to create the year (row.names) day day format to define the origin
+
 output_max_growth_doy$doy_p <- 
   as.Date(output_max_growth_doy$doy_p,
           origin = paste0(row.names(output_max_growth_doy),'-01-01'))
+
+## write to csv
 
 write.csv(output_max_growth_doy, "output_max_growth_doy_north.csv", row.names = FALSE)
