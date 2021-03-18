@@ -3,10 +3,10 @@
 ## by year, for both annuals and perennials and then outputs a .csv file
 
 ## set your wd to where the 16-day biomass csv is that you downloaded from RAP for the property
-setwd("/Volumes/GoogleDrive/My Drive/01 Programs/CRI/CRI_Technical Service Provision/CRI_TSP_Planning/2021 CRI Plans/American Creek Ranch/web_data/vegetation_data/RAP/north")
+setwd("/Volumes/GoogleDrive/My Drive/01 Programs/CRI/CRI_Technical Service Provision/CRI_TSP_Planning/2021 CRI Plans/American Creek Ranch/web_data/vegetation_data/RAP/middle")
 
 ## read in csv
-dat <- read.csv("ACP_north_16-day_biomass_RAP.csv")
+dat <- read.csv("ACP_middle_16-day_biomass_RAP.csv")
 
 ## function to find the maximum 16-day biomass growth values and the 
 ## corresponding day of year (doy) for annuals and perennials
@@ -59,7 +59,7 @@ colnames(output_max_growth_doy_count_perennials) <- c("doy_p", 'count_p')
 
 ## write all three data frames(count annual, count perennial, and max each year) to csv
 
-write.csv(output_max_growth_doy_count_annuals, "output_max_growth_doy_count_annuals_north.csv", row.names = FALSE)
-write.csv(output_max_growth_doy_count_perennials, "output_max_growth_doy_count_perennials_north.csv", row.names = FALSE)
+write.csv(output_max_growth_doy_count_annuals, "output_max_growth_doy_count_annuals_middle.csv", row.names = FALSE)
+write.csv(output_max_growth_doy_count_perennials, "output_max_growth_doy_count_perennials_middle.csv", row.names = FALSE)
 
-write.csv(output_max_growth_doy, "output_max_growth_doy_north.csv", row.names = FALSE)
+write.csv(output_max_growth_doy, "output_max_growth_doy_middle.csv", row.names = FALSE)
