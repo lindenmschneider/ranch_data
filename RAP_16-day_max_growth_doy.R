@@ -8,8 +8,6 @@ setwd("/Volumes/GoogleDrive/My Drive/01 Programs/CRI/CRI_Technical Service Provi
 ## read in csv
 dat <- read.csv("ACP_north_16-day_biomass_RAP.csv")
 
-
-
 ## function to find the maximum 16-day biomass growth values and the 
 ## corresponding day of year (doy) for annuals and perennials
 
@@ -26,8 +24,8 @@ foo <- function(x) {
   return(c(max_growth_a, max_growth_doy_a, max_growth_p, max_growth_doy_p))
 }
 
-## use split to split the data by year, sapply to apply the function foo to each of the years and t to transform the 
-## output into columns rather than rows
+## use split to split the data by year, sapply to apply the function foo to 
+## each of the years and t to transform the output into columns rather than rows
 
 output_max_growth_doy <- t(sapply(split(dat, dat$year), foo))
 
@@ -41,16 +39,27 @@ colnames(output_max_growth_doy) <- c('max_afgAGB','doy_a','max_pfgAGB','doy_p')
 
 ## covert doy for annuals into date, using paste to create the year (row.names) day day format to define the origin
 
-output_max_growth_doy$doy_a <- 
+output_max_growth_doy$date_a <- 
   as.Date(output_max_growth_doy$doy_a, 
           origin = paste0(row.names(output_max_growth_doy),'-01-01'))
 
 ## covert doy for perennials into date, using paste to create the year (row.names) day day format to define the origin
 
-output_max_growth_doy$doy_p <- 
+output_max_growth_doy$date_p <- 
   as.Date(output_max_growth_doy$doy_p,
           origin = paste0(row.names(output_max_growth_doy),'-01-01'))
 
-## write to csv
+## binning max growth days and counting for annuals and perennials, making into their own dataframes
+
+output_max_growth_doy_count_annuals <- as.data.frame(table(output_max_growth_doy$doy_a))
+colnames(output_max_growth_doy_count_annuals) <- c("doy_a", 'count_a')
+
+output_max_growth_doy_count_perennials <- as.data.frame(table(output_max_growth_doy$doy_p))
+colnames(output_max_growth_doy_count_perennials) <- c("doy_p", 'count_p')
+
+## write all three data frames(count annual, count perennial, and max each year) to csv
+
+write.csv(output_max_growth_doy_count_annuals, "output_max_growth_doy_count_annuals_north.csv", row.names = FALSE)
+write.csv(output_max_growth_doy_count_perennials, "output_max_growth_doy_count_perennials_north.csv", row.names = FALSE)
 
 write.csv(output_max_growth_doy, "output_max_growth_doy_north.csv", row.names = FALSE)
