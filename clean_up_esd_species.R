@@ -76,14 +76,15 @@ Ponderosa pine
 
 Miscellaneous perennial forbs
 5'
-## Fuss with gsub to get list with no erronious characters or spaces and only sperareted by \n
+
+## Fuss with gsub to get list with no erronious characters or spaces or numbers and only sperareted by \n
+## this is what you are after Mountain muhly\nMiscellaneous perennial forbs\nSideoats grama\nMuttongrass\nPine dropseed
 
 x <- gsub('[0-9]+','',x)
 x <- gsub ('\n—\n','\n',x)
 x <- gsub ('\n\n','\n',x)
 x <- gsub ('\n\n','\n',x)
 x <- gsub ('\n\n','\n',x)
-
 x <- gsub ('—', '\n',x)
 x <- gsub('—','',x)
 
