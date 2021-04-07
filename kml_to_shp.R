@@ -2,7 +2,7 @@
 
 ## setwd will need to be changed depending on where your kml file is saved
 
-setwd("/Volumes/GoogleDrive/My Drive/01 Programs/CRI/CRI_Technical Service Provision/CRI_TSP_Planning/2021 CRI Plans/American Creek Ranch")
+setwd("")
 
 ## read in kml file and assign the data to an object (ACP)
 

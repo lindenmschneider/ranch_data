@@ -3,7 +3,6 @@
 ## by year, for both annuals and perennials and then outputs a .csv file
 
 ## set your wd to where the 16-day biomass csv is that you downloaded from RAP for the property
-setwd("/Volumes/GoogleDrive/My Drive/01 Programs/CRI/CRI_Technical Service Provision/CRI_TSP_Planning/2021 CRI Plans/American Creek Ranch/web_data/vegetation_data/RAP/middle")
 
 ## read in csv
 dat <- read.csv("ACP_middle_16-day_biomass_RAP.csv")
